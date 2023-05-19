@@ -35,9 +35,31 @@ function HomeScreen({navigation}) {
 }
 
 function SobreScreen({navigation}) {
+
+  let widthWindow = Dimensions.get('window').width -30 -40;
+
+  const abrirModalContato = () =>{
+    
+  }
+
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Sobre Screen</Text>
+    <View style={{ flex: 1, padding:15}}>
+      <ScrollView contentContainerStyle={{padding:20}} style={styles.container}>
+        <Text style={styles.textHeader}>Sobre</Text>
+
+        <Image style={{width:widthWindow,height:widthWindow,marginTop:20}} source={{uri:'https://avatars.githubusercontent.com/u/82848125?v=4'}} />
+
+        <View>
+          <Text style={{fontSize:20,marginTop:10}}>Dérick Trennepohl / Developer</Text>
+          <Text style={{fontSize:16,marginTop:10}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel pulvinar justo. Sed leo nibh, pharetra a porttitor sed, accumsan vitae purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent convallis urna facilisis lorem scelerisque, eget aliquet ante rhoncus. Fusce efficitur maximus ante, vitae fringilla odio efficitur a. Vestibulum lacus erat, pellentesque vitae enim eu, porta fermentum felis. Mauris pulvinar justo ut egestas ullamcorper. Sed dapibus nulla nec egestas feugiat. In mollis odio eu condimentum tempor.</Text>
+
+          <TouchableOpacity onPress={()=>abrirModalContato()} style={{...styles.btnNavigation,justifyContent:'center'}}>
+            <Text style={{color:'white',fontSize:17}}>Entrar em contato!</Text>
+          </TouchableOpacity>
+        </View>
+
+      </ScrollView>
+      
     </View>
   );
 }
