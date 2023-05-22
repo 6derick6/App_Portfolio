@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, TouchableOpacity, StatusBar, ScrollView, StyleSheet, Dimensions, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar, ScrollView, StyleSheet, Dimensions, Image, TextInput } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -7,7 +7,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useState, useEffect } from 'react';
 import * as WebBrowser from 'expo-web-browser';
-
+import Modal from './Modal.js'
 
 function HomeScreen({navigation}) {
   return (
@@ -36,30 +36,42 @@ function HomeScreen({navigation}) {
 
 function SobreScreen({navigation}) {
 
-  let widthWindow = Dimensions.get('window').width -30 -40;
+  const [showModal,setModal] = useState(false);
 
   const abrirModalContato = () =>{
-    
+    setModal(!showModal);
   }
 
+  let widthWindow = Dimensions.get('window').width -30 -40;
+
   return (
-    <View style={{ flex: 1, padding:15}}>
-      <ScrollView contentContainerStyle={{padding:20}} style={styles.container}>
-        <Text style={styles.textHeader}>Sobre</Text>
+    <View style={{flex:1}}>
 
-        <Image style={{width:widthWindow,height:widthWindow,marginTop:20}} source={{uri:'https://avatars.githubusercontent.com/u/82848125?v=4'}} />
+      {
+        (showModal)?
+        <Modal showModal={showModal} setModal={setModal}/>
+        :
+        <View></View>
+      }
 
-        <View>
-          <Text style={{fontSize:20,marginTop:10}}>Dérick Trennepohl / Developer</Text>
-          <Text style={{fontSize:16,marginTop:10}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel pulvinar justo. Sed leo nibh, pharetra a porttitor sed, accumsan vitae purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent convallis urna facilisis lorem scelerisque, eget aliquet ante rhoncus. Fusce efficitur maximus ante, vitae fringilla odio efficitur a. Vestibulum lacus erat, pellentesque vitae enim eu, porta fermentum felis. Mauris pulvinar justo ut egestas ullamcorper. Sed dapibus nulla nec egestas feugiat. In mollis odio eu condimentum tempor.</Text>
+      <View style={{ flex: 1, padding:15}}>
+        <ScrollView contentContainerStyle={{padding:20}} style={styles.container}>
+          <Text style={styles.textHeader}>Sobre</Text>
 
-          <TouchableOpacity onPress={()=>abrirModalContato()} style={{...styles.btnNavigation,justifyContent:'center'}}>
-            <Text style={{color:'white',fontSize:17}}>Entrar em contato!</Text>
-          </TouchableOpacity>
-        </View>
+          <Image style={{width:widthWindow,height:widthWindow,marginTop:20}} source={{uri:'https://avatars.githubusercontent.com/u/82848125?v=4'}} />
 
-      </ScrollView>
-      
+          <View>
+            <Text style={{fontSize:20,marginTop:10}}>Dérick Trennepohl / Developer</Text>
+            <Text style={{fontSize:16,marginTop:10}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut vel pulvinar justo. Sed leo nibh, pharetra a porttitor sed, accumsan vitae purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent convallis urna facilisis lorem scelerisque, eget aliquet ante rhoncus. Fusce efficitur maximus ante, vitae fringilla odio efficitur a. Vestibulum lacus erat, pellentesque vitae enim eu, porta fermentum felis. Mauris pulvinar justo ut egestas ullamcorper. Sed dapibus nulla nec egestas feugiat. In mollis odio eu condimentum tempor.</Text>
+
+            <TouchableOpacity onPress={()=>abrirModalContato()} style={{...styles.btnNavigation,justifyContent:'center'}}>
+              <Text style={{color:'white',fontSize:17}}>Entrar em contato!</Text>
+            </TouchableOpacity>
+          </View>
+
+        </ScrollView>
+        
+      </View>
     </View>
   );
 }
@@ -203,5 +215,26 @@ const styles = StyleSheet.create({
   botaoAbrirNavegador: {
     padding:10,
     backgroundColor:'#5f5380',
+  },
+
+  modalParent: {
+    position: 'absolute',
+    left:0,
+    top:0,
+    width:'100%',
+    height:'100%',
+    backgroundColor:'rgba(0,0,0,0.6)',
+    zIndex:1
+  },
+
+  boxModal: {
+    backgroundColor: 'white',
+    height:370,
+    width:'100%',
+    position:'absolute',
+    left:0,
+    top:'50%',
+    marginTop:-185,
+    padding:10
   }
 })
