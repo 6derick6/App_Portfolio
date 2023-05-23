@@ -1,15 +1,23 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, TextInput, TouchableOpacity } from 'react-native';
+import { db } from './firebase.js';
 
 export default function Modal(props){
 
     const [nome,setNome] = useState('');
     const [mensagem,setMensagem] = useState('');
 
-    enviarMensagem = () =>{
-        console.log(nome);
-        console.log(mensagem);
+    const enviarMensagem = () =>{
+        db.collection('contato').add({
+          nome: nome,
+          mensagem: mensagem
+        })
+        alert('Sua mensagem foi enviada com sucesso.');
+
+        setNome('');
+
+        setMensagem('');
     }
 
     return (
